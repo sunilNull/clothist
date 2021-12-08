@@ -6,6 +6,7 @@ import {
 import ClothistPrimaryButton from '../components/ClothistPrimaryButton';
 import ProductCollection from '../components/ProductCollection';
 
+import { PRODUCTS } from '../data/dummy-data';
 import Colors from '../constants/Colors'
 
 const HomeTabScreen = props => {
@@ -24,7 +25,16 @@ const HomeTabScreen = props => {
                             </View>
                         </ImageBackground>
 
-                        <ProductCollection />
+                        <ProductCollection
+                            title="New"
+                            subTitle="You've never seen it before!"
+                            productsData={PRODUCTS}
+                        />
+                        <ProductCollection
+                            title="Sale"
+                            subTitle="Super summer sale"
+                            productsData={[...PRODUCTS].reverse()}
+                        />
                     </ScrollView>
                 </View>
             </TouchableWithoutFeedback>

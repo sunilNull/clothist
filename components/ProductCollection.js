@@ -1,22 +1,39 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import Colors from '../constants/Colors';
 import TextStyle from '../constants/TextStyle';
 import ProductCard from './ProductCard';
 
-const ProductCollection = () => {
+const ProductCollection = props => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.subHeader}>
-                    <Text style={styles.collectionTitle}>New</Text>
-                    <Text style={{...TextStyle.Text11Px,...styles.collectionSubtitle}}>you've never seen it before!</Text>
+                    <Text style={styles.collectionTitle}>{props.title}</Text>
+                    <Text style={{ ...TextStyle.Text11Px, ...styles.collectionSubtitle }}>{props.subTitle}</Text>
                 </View>
-                <Text style={{...TextStyle.Text11Px,...styles.seeMoreBtn}}>view all</Text>
+                <Text style={{ ...TextStyle.Text11Px, ...styles.seeMoreBtn }}>view all</Text>
             </View>
-            <View style={styles.body}>
-                <ProductCard />
-            </View>
+            <FlatList
+                keyExtractor={(item, index) => {
+                    return item.id;
+                  }}
+                horizontal={true}
+                contentContainerStyle={styles.body}
+                data={props.productsData}
+                renderItem={(productItem) => (
+                    <ProductCard
+                        id={productItem.item.id}
+                        name={productItem.item.name}
+                        brand={productItem.item.brand}
+                        price={productItem.item.price}
+                        image={productItem.item.image}
+                        totalReviews={productItem.item.totalReviews}
+                        stars={productItem.item.stars}
+                        isNew={productItem.item.isNew}
+                        isOnSale={productItem.item.isOnSale}
+                    />
+                )}/>
         </View>
     )
 }
@@ -24,9 +41,9 @@ const ProductCollection = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingBottom:10,
+        paddingBottom: 10,
         marginTop: 10,
-        marginLeft: 25,
+        marginLeft: 15,
     },
     header: {
         flexDirection: 'row',
@@ -34,10 +51,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20
     },
-    subHeader:{
+    subHeader: {
         justifyContent: 'space-evenly',
     },
-    collectionTitle:{
+    collectionTitle: {
         fontFamily: 'Metropolis-Bold',
         fontSize: 34
     },
@@ -48,8 +65,11 @@ const styles = StyleSheet.create({
         color: Colors.DarkWhite,
         marginRight: 5
     },
-    body:{
-
+    body: {
+        marginLeft: -5,
+        flexGrow: 1,
+        alignItems: 'center',
+        flexDirection: 'row'
     }
 });
 

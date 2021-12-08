@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -10,13 +10,14 @@ import FavoriteTabScreen from './FavoriteTabScreen';
 import ProfileTabScreen from './ProfileTabScreen';
 
 import Colors from '../constants/Colors';
+import TextStyle from '../constants/TextStyle';
 
 const Tab = createBottomTabNavigator();
 
 const HomeScreen = props => {
     return (
         <Tab.Navigator
-            initialRouteName="HomeTab"
+            initialRouteName="categoryTab"
             screenOptions={({ route }) => ({
                 tabBarHideOnKeyboard: true,
                 tabBarStyle: {
@@ -59,7 +60,7 @@ const HomeScreen = props => {
             <Tab.Screen name="homeTab" options={{ headerShown: false, tabBarLabel: 'Home' }}>
                 {() => <HomeTabScreen navigation={props.navigation} />}
             </Tab.Screen>
-            <Tab.Screen name="categoryTab" options={{ headerShown: false, tabBarLabel: 'Shop' }}>
+            <Tab.Screen name="categoryTab" options={{ headerShown: false}}>
                 {() => <CategoryTabScreen navigation={props.navigation} />}
             </Tab.Screen>
             <Tab.Screen name="cartTab" options={{ headerShown: false, tabBarLabel: 'Bag' }}>
